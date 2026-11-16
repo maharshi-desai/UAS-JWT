@@ -1,5 +1,6 @@
 import express from 'express';
 import { authRoutes } from './routes/authRoutes.js';
+import { userRoutes } from './routes/userRoutes.js';
 
 export const app = express();
 
@@ -11,6 +12,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use(authRoutes);
+app.use(userRoutes);
 
 app.use((err, _req, res, _next) => {
   if (err instanceof SyntaxError && 'body' in err) {
