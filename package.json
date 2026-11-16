@@ -1,0 +1,27 @@
+{
+  "name": "uas-jwt",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "User authentication API built with Express, Prisma, PostgreSQL, bcrypt, and JWT.",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.0",
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
