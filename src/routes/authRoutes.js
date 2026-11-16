@@ -42,3 +42,19 @@ authRoutes.post('/signup', async (req, res) => {
     throw error;
   }
 });
+
+authRoutes.post('/login', async (req, res) => {
+  const { email, password } = req.body ?? {};
+  if (typeof email !== 'string' || typeof password !== 'string' || !email.trim() || !password) {
+    return res.status(400).json({ error: 'Email and password are required as strings' });
+  }
+
+  const normalizedEmail = normalizeEmail(email);
+  const user = await prisma.user.findUnique({ where: { email: normalizedEmail } });
+  const passwordMatches = user ? await bcrypt.compare(password, user.password) : false;
+  if (!user || !passwordMatches) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  return res.status(200).json({ user: publicUser(user), token: createToken(user) });
+});
